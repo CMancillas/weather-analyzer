@@ -1,0 +1,39 @@
++-------------------------------------------------------+
+|                        WeatherData                   |
+|-------------------------------------------------------|
+| - timestamp: LocalDateTime                           |
+| - temperature: double                                 |
+| - humidity: double                                    |
+| - pressure: double                                    |
+| - windSpeed: double                                   |
+|-------------------------------------------------------|
+| + getTimestamp(): LocalDateTime                       |
+| + getTemperature(): double                            |
+| + getHumidity(): double                               |
+| + getPressure(): double                               |
+| + getWindSpeed(): double                              |
++--------------------------^----------------------------+
+                           |
+                           |
+              +------------+-------------+
+              |                          |
+              |                          |
+  +---------------------+       +------------------+
+  |    DataReader       |       |    Analyzer      |
+  |---------------------|       |------------------|
+  | + readCSV(): List<WeatherData> | + calculateAvgTemperature(): double|
+  | + readJSON(): List<WeatherData| | + findMaxTemperature(): double   |
+  | + validateData(): void        | | + findMinTemperature(): double   |
+  +---------------------+         | + detectTemperatureTrends(): void |
+                                  +------------------+
+                                           |
+                                           |
+                           +---------------+---------------+
+                           |                               |
+                +--------------------+             +------------------+
+                | ReportGenerator    |             |  Utility         |
+                |--------------------|             |------------------|
+                | + generateTextReport(): void  |    | + formatTimestamp(): String|
+                | + generateCSVReport(): void   |    | + handleMissingData(): void |
+                | + displaySummaryReport(): void |    +------------------+
+                +--------------------+
