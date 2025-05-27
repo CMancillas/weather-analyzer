@@ -28,6 +28,8 @@ public class WeatherData
         this.windSpeed = windSpeed;
     }
 
+    /*----------------------------------------------------------------------------------- */
+
     // getters and setters for each attribute
     public LocalDateTime getTimestamp()
     {

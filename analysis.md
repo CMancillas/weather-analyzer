@@ -132,3 +132,4 @@ While this initial version will be focused on processing local data, there are s
 ## 10. Conclusion
 
 The analysis phase provides a solid understanding of what the project will entail, including the requirements, challenges, and expected deliverables. The primary goal is to process weather data, analyze it, and generate reports. This clear understanding helps you move forward with the design stage in the SDLC.
+    
