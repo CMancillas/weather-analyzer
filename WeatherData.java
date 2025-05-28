@@ -1,12 +1,13 @@
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class WeatherData
 {
-    private LocalDateTime timestamp;
+    private LocalDate timestamp;
     private double temperature;
     private double humidity;
-    private double pressure;
     private double windSpeed;
+    private double pressure;
+    
 
     // constructor methods
     public WeatherData()
@@ -19,24 +20,24 @@ public class WeatherData
 
     }
 
-    public WeatherData(LocalDateTime timestamp, double temperature, double humidity, double pressure, double windSpeed)
+    public WeatherData(LocalDate timestamp, double temperature, double humidity, double windSpeed, double pressure)
     {
         this.timestamp = timestamp;
         this.temperature = temperature;
         this.humidity = humidity;
-        this.pressure = pressure;
         this.windSpeed = windSpeed;
+        this.pressure = pressure;
     }
 
     /*----------------------------------------------------------------------------------- */
 
     // getters and setters for each attribute
-    public LocalDateTime getTimestamp()
+    public LocalDate getTimestamp()
     {
         return timestamp;
     }
 
-    public void setTimestamp(LocalDateTime timestamp)
+    public void setTimestamp(LocalDate timestamp)
     {
         this.timestamp = timestamp;
     }
