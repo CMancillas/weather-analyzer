@@ -1,3 +1,4 @@
+package src.model;
 import java.time.LocalDate;
 
 public class WeatherData

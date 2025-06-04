@@ -1,7 +1,11 @@
+package src.io;
 import java.util.List;
 import java.io.File;
 import java.io.FileNotFoundException; // class to handle errors
 import java.util.Scanner;
+
+import src.model.WeatherData;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.time.LocalDate;
@@ -19,20 +23,18 @@ public class DataReader
         column.add("windspeed");
 
         HashMap<String,Integer > columns = new HashMap<String,Integer >();
-        
-        // Comentado solo para debuggear la clase analyzer facilmente
-        /* 
+                
         System.out.print("Enter name of the file without the extension: ");
         Scanner sc = new Scanner(System.in);
         String fileName = sc.nextLine();
-        sc.close();*/
+        sc.close();
         
         try 
         {
-            File myFile = new File( "../weather-analyzer/csv/tucson_last7days.csv");
+            //File myFile = new File( "../weather-analyzer/csv/tucson_last7days.csv");
             //File myFile = new File( "../weather-analyzer/csv/tucson_monthtodate.csv");
 
-            //File myFile = new File("../weather-analyzer/csv/" + fileName + ".csv");
+            File myFile = new File("../weather-analyzer/csv/" + fileName + ".csv");
             Scanner myReader = new Scanner(myFile);
             
             // Header processing

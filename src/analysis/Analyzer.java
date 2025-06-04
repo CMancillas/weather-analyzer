@@ -1,4 +1,8 @@
+package src.analysis;
 import java.util.List;
+
+import src.model.WeatherData;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -6,6 +10,7 @@ public class Analyzer
 {
     private List<WeatherData> data;
     
+    // Constructor
     public Analyzer(List<WeatherData> data)
     {
         this.data = data;
@@ -60,14 +65,12 @@ public class Analyzer
     }
 
 
-    public void detectTemperatureTrends()
+    public String detectTemperatureTrends()
     {
-        longestIncreasingStreak();
-        longestDecreasingStreak();
-        
+        return String.format("%s\n%s", longestIncreasingStreak(), longestDecreasingStreak() );
     }
 
-    private void longestIncreasingStreak()
+    private String longestIncreasingStreak()
     {
         HashMap<Integer, int[]> trends = new HashMap<Integer, int[]>();
         
@@ -103,10 +106,10 @@ public class Analyzer
         if ( temp > longestStreak)
             longestStreak = temp;
         
-        printTemperatureTrend("Increasing", longestStreak, trends.get(longestStreak));
+        return printTemperatureTrend("Increasing", longestStreak, trends.get(longestStreak));
     }
 
-    private void longestDecreasingStreak()
+    private String longestDecreasingStreak()
     {
         HashMap<Integer, int[]> trends = new HashMap<Integer, int[]>();
         
@@ -138,12 +141,35 @@ public class Analyzer
             }
                  
         }
-        printTemperatureTrend("Decreasing", longestStreak, trends.get(longestStreak));
-
+        
+        return printTemperatureTrend("Decreasing", longestStreak, trends.get(longestStreak));
     }
 
-    private void printTemperatureTrend(String s, int n ,int[] array)
+    private String printTemperatureTrend(String s, int n ,int[] array)
     {
+        StringBuilder trend = new StringBuilder();
+
+        trend.append("Longest " + s + " Temperature Trend:\n");
+        trend.append("Start Date: " + data.get( array[0] ).getTimestamp() + "\n");
+        trend.append("End Date: " + data.get( array[1] ).getTimestamp() + "\n");
+        trend.append("Length: " + n + " days" + "\n");
+        trend.append("Temperatures: ");
+
+        int i = array[0];
+        trend.append("[");
+        
+        while ( i <= array[1] )
+        {
+            if ( i == array[1] )
+                trend.append( data.get(i).getTemperature() );
+            else 
+                trend.append( data.get(i).getTemperature() + ", " );      
+            i++;
+        }
+        trend.append("]");
+        trend.append("\n");
+        
+        /*
         System.out.println("Longest " + s + " Temperature Trend:");
         System.out.println("Start Date: " + data.get( array[0] ).getTimestamp() );
         System.out.println("End Date: " + data.get( array[1] ).getTimestamp() );
@@ -163,7 +189,8 @@ public class Analyzer
         System.out.print("]");
         System.out.println();
                 System.out.println();
-
+         */
+        return trend.toString();
     }
 /*----------------------------------------------------------------------------------------------------------------------- */
     // Humidity
@@ -286,16 +313,4 @@ public class Analyzer
     }
 
     // more methods to be added .....
-
-    public static void main(String[] args)
-    {
-        DataReader dr = new DataReader();
-        
-        Analyzer analyzer = new Analyzer(dr.readCSV());
-        analyzer.detectTemperatureTrends();
-        //analyzer.findMaxWindspeed();
-        //analyzer.findMinWindspeed();
-    
-     
-    }
 }

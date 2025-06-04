@@ -3,6 +3,7 @@ Weather station data analyzer which will process and analyze weather data, creat
 
 
 points i do not need to forget before implementing this README file properly:
+***This is all about the DataReader.class***
 - when typying the file name there's no need for the user to type the extension (".csv"). As long as they type in the correct name of the file will be okay.
 - make sure that each cell is filled with its correct data or with a "NA", "na", "-", " "
 - reminder: this program only works with the headers: timestamp, temperature, humidity, windspeed and pressure.
