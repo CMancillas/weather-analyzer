@@ -42,6 +42,7 @@ public class ReportGenerator
             myFileWriter.write(printTextReport()); 
             myFileWriter.close();
             System.out.println("Successfully wrote to the .txt file.");
+            System.out.println();
         } 
         catch (IOException e) 
         {
@@ -110,6 +111,7 @@ public class ReportGenerator
             myFileWriter.append( printCSVReport() );
             myFileWriter.close();
             System.out.println("Successfully wrote to the .csv file.");
+            System.out.println();
         } 
         catch (Exception e) 
         {
@@ -147,39 +149,55 @@ public class ReportGenerator
         System.out.println("\n");
         
         System.out.println("Temperature: ");
-        System.out.println("Max: " + analyzer.findMaxTemperature() + "°F");
+        printBar("Max: ", analyzer.findMaxTemperature(), analyzer.findMaxTemperature());
+        printBar("Min: ", analyzer.findMinTemperature(), analyzer.findMaxTemperature());
+        printBar("Avg: ", analyzer.calculateAvgTemperature(), analyzer.findMaxTemperature());
+        System.out.println();
+        /*System.out.println("Max: " + analyzer.findMaxTemperature() + "°F");
         System.out.println("Min: " + analyzer.findMinTemperature() + "°F");
         System.out.printf( "Avg: %.2f°F\n", analyzer.calculateAvgTemperature() );
+        System.out.println();*/
+        
+        System.out.println("Humidity: ");
+        printBar("Max: ", analyzer.findMaxHumidity(), analyzer.findMaxHumidity() );
+        printBar("Min: ", analyzer.findMinHumidity(), analyzer.findMaxHumidity() );
         System.out.println();
 
-        System.out.println("Humidity: ");
+        /*
         System.out.println("Max: " + analyzer.findMaxHumidity() + "%");
         System.out.println("Min: " + analyzer.findMinHumidity() + "%");
         System.out.println();
-
+         */
         System.out.println("Pressure: ");
+        printBar("Max: ", analyzer.findMaxPressure(), analyzer.findMaxPressure() );
+        printBar("Min: ", analyzer.findMinPressure(), analyzer.findMaxPressure() );
+        System.out.println();
+
+        /*
         System.out.println("Max: " + analyzer.findMaxPressure() + "hPa");
         System.out.println("Min: " + analyzer.findMinPressure() + "hPa");
         System.out.println();
-
+         */
         System.out.println("Wind Speed: ");
+        printBar("Max: ", analyzer.findMaxWindspeed() , analyzer.findMaxWindspeed() );
+        printBar("Min: ", analyzer.findMinWindspeed() , analyzer.findMaxWindspeed() );
+        System.out.println();
+        /*
         System.out.println("Max: " + analyzer.findMaxWindspeed() + "mph");
         System.out.println("Min: " + analyzer.findMinWindspeed() + "mph");
         System.out.println();
-
+         */
         System.out.printf("%s", analyzer.detectTemperatureTrends());
-
     }
 
-    public static void main(String[] args)
+    private void printBar(String label, double value, double maxScale)
     {
-        DataReader dr = new DataReader();
-        List<WeatherData> weatherData = dr.readCSV();
+        int barLength = (int) ((value/maxScale) * 25); // will scale to max 25 blocks
+        StringBuilder bar = new StringBuilder();
 
-        //error al momentod e llamar PRINT TEXT REPORT !!!!
-        ReportGenerator rg = new ReportGenerator(weatherData);
-        //rg.generateTextReport("Esele");
-        //rg.generateCSVReport("esele2.0");
-        rg.displaySummaryReport();
+        for ( int i = 0; i < barLength; ++i)
+            bar.append("█");
+
+        System.out.printf("%-5s %6.1f°F | %s\n", label, value, bar.toString());
     }
 }

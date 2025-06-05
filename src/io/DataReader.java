@@ -13,7 +13,14 @@ import static java.time.format.DateTimeFormatter.ISO_LOCAL_DATE;
 
 public class DataReader 
 {
-    public List<WeatherData> readCSV()
+    //private String filename;
+    /* 
+    public DataReader(String filename)
+    {
+        this.filename = filename;
+    }*/
+    
+    public List<WeatherData> readCSV(String filename)
     {   
         LinkedList<String> column = new LinkedList<String>();
         column.add("datetime");
@@ -24,17 +31,17 @@ public class DataReader
 
         HashMap<String,Integer > columns = new HashMap<String,Integer >();
                 
-        System.out.print("Enter name of the file without the extension: ");
+        /*System.out.print("Enter name of the file without the extension: ");
         Scanner sc = new Scanner(System.in);
         String fileName = sc.nextLine();
-        sc.close();
+        sc.close();*/
         
         try 
         {
             //File myFile = new File( "../weather-analyzer/csv/tucson_last7days.csv");
             //File myFile = new File( "../weather-analyzer/csv/tucson_monthtodate.csv");
 
-            File myFile = new File("../weather-analyzer/csv/" + fileName + ".csv");
+            File myFile = new File("../weather-analyzer/csv/" + filename + ".csv");
             Scanner myReader = new Scanner(myFile);
             
             // Header processing
