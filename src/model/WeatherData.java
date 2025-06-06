@@ -10,7 +10,7 @@ public class WeatherData
     private double pressure;
     
 
-    // constructor methods
+    // Default constructor
     public WeatherData()
     {
         timestamp = null;
@@ -21,6 +21,7 @@ public class WeatherData
 
     }
 
+    // Parametrized constructor
     public WeatherData(LocalDate timestamp, double temperature, double humidity, double windSpeed, double pressure)
     {
         this.timestamp = timestamp;
@@ -30,9 +31,8 @@ public class WeatherData
         this.pressure = pressure;
     }
 
-    /*----------------------------------------------------------------------------------- */
 
-    // getters and setters for each attribute
+    // Getters and setters
     public LocalDate getTimestamp()
     {
         return timestamp;

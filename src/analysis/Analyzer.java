@@ -1,8 +1,7 @@
 package src.analysis;
-import java.util.List;
-
 import src.model.WeatherData;
 
+import java.util.List;
 import java.util.HashMap;
 import java.util.LinkedList;
 
@@ -11,12 +10,17 @@ public class Analyzer
     private List<WeatherData> data;
     
     // Constructor
+
     public Analyzer(List<WeatherData> data)
     {
+        if ( data == null || data.isEmpty())
+            throw new IllegalArgumentException("Weather data cannot be null or empty.");
+
         this.data = data;
     }
 
-    // getter and setter
+    // Getter and Setter
+
     public List<WeatherData> getData()
     {
         return data;
@@ -28,6 +32,7 @@ public class Analyzer
     }
     
     // Temperature
+
     public double calculateAvgTemperature()
     {
         double sum = 0.0;
@@ -64,7 +69,7 @@ public class Analyzer
         return min;
     }
 
-
+    // Detects longest increasing and decreasing temperature streaks 
     public String detectTemperatureTrends()
     {
         return String.format("%s\n%s", longestIncreasingStreak(), longestDecreasingStreak() );
@@ -145,6 +150,7 @@ public class Analyzer
         return printTemperatureTrend("Decreasing", longestStreak, trends.get(longestStreak));
     }
 
+    // Builds formatted output for a temperature trend
     private String printTemperatureTrend(String s, int n ,int[] array)
     {
         StringBuilder trend = new StringBuilder();
@@ -168,32 +174,12 @@ public class Analyzer
         }
         trend.append("]");
         trend.append("\n");
-        
-        /*
-        System.out.println("Longest " + s + " Temperature Trend:");
-        System.out.println("Start Date: " + data.get( array[0] ).getTimestamp() );
-        System.out.println("End Date: " + data.get( array[1] ).getTimestamp() );
-        System.out.println("Length: " + n + " days");
-        System.out.print("Temperatures: " );
 
-        int i = array[0];
-        System.out.print("[");
-        while ( i <= array[1] )
-        {
-            if ( i == array[1] )
-                System.out.print( data.get(i).getTemperature() ); 
-            else       
-                System.out.print( data.get(i).getTemperature() + ", ");
-            i++;
-        }
-        System.out.print("]");
-        System.out.println();
-                System.out.println();
-         */
         return trend.toString();
     }
-/*----------------------------------------------------------------------------------------------------------------------- */
+
     // Humidity
+
     public double findMaxHumidity()
     {
         double max = data.get(0).getHumidity();
@@ -220,6 +206,7 @@ public class Analyzer
     }
 
     // Pressure
+
     public double findMaxPressure()
     {
         double max = data.get(0).getPressure();
@@ -247,6 +234,7 @@ public class Analyzer
     }
 
     // Wind speed
+
     public double findMaxWindspeed()
     {
         double max = data.get(0).getWindspeed();
@@ -285,20 +273,11 @@ public class Analyzer
             if ( data.get(i).getTemperature() > threshold )
                 hotDays.add( data.get(i) );
         }
-        /*
-        // prints for debbugging
-        System.out.println("Show me all days above " + threshold + " °F");
-        // print for debugging
-        for (int i = 0; i < hotDays.size(); i++)
-        {
-            System.out.print(hotDays.get(i).getTimestamp() + ": ");
-            System.out.println(hotDays.get(i).getTemperature());
-        } */
 
         return hotDays;
     }
 
-    // Count days above wind threshold
+    // Counts how many days exceed a wind speed threshold
     public int countWindyDays(double threshold)
     {   
         int counter = 0;

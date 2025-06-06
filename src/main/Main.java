@@ -18,9 +18,11 @@ public class Main {
         String filename = sc.nextLine();
 
         System.out.println();
-        //sc.close();
 
+        // Load data from CSV
         data = dataReader.readCSV(filename);
+
+        // Exit if no valid data
         if ( data == null || data.isEmpty() )
         {
             sc.close();
@@ -31,6 +33,7 @@ public class Main {
         int option;
         do 
         {
+            // Display menu
             System.out.println( "1 - Display weather summary report" );
             System.out.println( "2 - Generate .txt report file" );
             System.out.println( "3 - Generate .csv report file" );
@@ -38,14 +41,14 @@ public class Main {
             System.out.println("0 - Exit");
             System.out.print("Select an option: ");
             option = sc.nextInt();
-            sc.nextLine(); // clear the buffer
+            sc.nextLine(); // clear buffer
 
             System.out.println();
         
             System.out.println("Your choice: " + option );
             System.out.println();
         
-
+            // Ask for output filename when generating files
             if ( option == 2 || option == 3 || option == 4 )
             {
                 System.out.print("Enter output base filename (no extension): ");
@@ -54,6 +57,7 @@ public class Main {
 
             ReportGenerator reportGenerator = new ReportGenerator(data);
 
+            // Execute selected option
             switch (option) 
             {
                 case 1:

@@ -1,9 +1,8 @@
 package src.io;
-import java.util.List;
-
 import src.analysis.Analyzer;
 import src.model.WeatherData;
 
+import java.util.List;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,13 +12,14 @@ public class ReportGenerator
     private List<WeatherData> data;
     private Analyzer analyzer;
     
+    // Constructor initializes data and analyzer
     public ReportGenerator(List<WeatherData> data)
     {
         this.data = data;
         analyzer = new Analyzer(data);
     }
 
-    // method that writes a readable, well-formatted summary to the console and a .txt file
+    // Generates a formatted text report and writes it to a .txt file 
     public void generateTextReport(String filename)
     {
         try 
@@ -50,6 +50,7 @@ public class ReportGenerator
         }
     }
     
+    // Builds the contet for the text report 
     private String printTextReport()
     {   
         StringBuilder report = new StringBuilder();
@@ -82,13 +83,10 @@ public class ReportGenerator
 
         report.append( String.format("%s", analyzer.detectTemperatureTrends() ));
          
-
         return report.toString();
     }
 
-    /*------------------------------------------------------------------------------------- */
-    
-    // method that exports the raw data into a .csv file
+    // Generates a summary CSV report    
     public void generateCSVReport(String filename)
     {
         try 
@@ -119,6 +117,7 @@ public class ReportGenerator
         }
     }
 
+    // Builds the content for the CSV report
     private String printCSVReport()
     {
         StringBuilder report = new StringBuilder();
@@ -140,6 +139,7 @@ public class ReportGenerator
         return report.toString();
     }
 
+    // Displays a text-based summary report with visual bars
     public void displaySummaryReport()
     {
         System.out.println( "=================================" );
@@ -148,48 +148,36 @@ public class ReportGenerator
         System.out.println("Date Range: " + data.get(0).getTimestamp() + " to " + data.get( data.size() - 1 ).getTimestamp());
         System.out.println("\n");
         
+        // Temperature with bars
         System.out.println("Temperature: ");
         printBar("Max: ", analyzer.findMaxTemperature(), analyzer.findMaxTemperature());
         printBar("Min: ", analyzer.findMinTemperature(), analyzer.findMaxTemperature());
         printBar("Avg: ", analyzer.calculateAvgTemperature(), analyzer.findMaxTemperature());
         System.out.println();
-        /*System.out.println("Max: " + analyzer.findMaxTemperature() + "°F");
-        System.out.println("Min: " + analyzer.findMinTemperature() + "°F");
-        System.out.printf( "Avg: %.2f°F\n", analyzer.calculateAvgTemperature() );
-        System.out.println();*/
-        
+
+        // Humidity with bars
         System.out.println("Humidity: ");
         printBar("Max: ", analyzer.findMaxHumidity(), analyzer.findMaxHumidity() );
         printBar("Min: ", analyzer.findMinHumidity(), analyzer.findMaxHumidity() );
         System.out.println();
 
-        /*
-        System.out.println("Max: " + analyzer.findMaxHumidity() + "%");
-        System.out.println("Min: " + analyzer.findMinHumidity() + "%");
-        System.out.println();
-         */
+        // Pressure with bars 
         System.out.println("Pressure: ");
         printBar("Max: ", analyzer.findMaxPressure(), analyzer.findMaxPressure() );
         printBar("Min: ", analyzer.findMinPressure(), analyzer.findMaxPressure() );
         System.out.println();
 
-        /*
-        System.out.println("Max: " + analyzer.findMaxPressure() + "hPa");
-        System.out.println("Min: " + analyzer.findMinPressure() + "hPa");
-        System.out.println();
-         */
+        // Wind speed with bard
         System.out.println("Wind Speed: ");
         printBar("Max: ", analyzer.findMaxWindspeed() , analyzer.findMaxWindspeed() );
         printBar("Min: ", analyzer.findMinWindspeed() , analyzer.findMaxWindspeed() );
         System.out.println();
-        /*
-        System.out.println("Max: " + analyzer.findMaxWindspeed() + "mph");
-        System.out.println("Min: " + analyzer.findMinWindspeed() + "mph");
-        System.out.println();
-         */
+        
+        // Temperature trends
         System.out.printf("%s", analyzer.detectTemperatureTrends());
     }
 
+    // Displays a horizontal bar based on value vs scale
     private void printBar(String label, double value, double maxScale)
     {
         int barLength = (int) ((value/maxScale) * 25); // will scale to max 25 blocks
